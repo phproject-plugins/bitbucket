@@ -1,6 +1,13 @@
 <?php
+/**
+ * @package  Bitbucket
+ * @author   Alan Hardman <alan@phpizza.com>
+ * @version  1.0.0
+ */
 
-class Bitbucket extends \Plugin {
+namespace Plugin\Bitbucket;
+
+class Base extends \Plugin {
 
 	/**
 	 * Handle HTTP POST request
