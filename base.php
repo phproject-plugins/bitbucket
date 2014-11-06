@@ -10,6 +10,13 @@ namespace Plugin\Bitbucket;
 class Base extends \Plugin {
 
 	/**
+	 * Initialize the plugin
+	 */
+	public function load() {
+		// No hooks required
+	}
+
+	/**
 	 * Handle HTTP POST request
 	 * @param Base  $f3
 	 * @param array $params
