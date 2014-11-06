@@ -13,7 +13,8 @@ class Base extends \Plugin {
 	 * Initialize the plugin
 	 */
 	public function load() {
-		// No hooks required
+		$f3 = \Base::instance();
+		$f3->route("POST /bitbucket-post", "Plugin\Bitbucket\Base->post");
 	}
 
 	/**
