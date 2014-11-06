@@ -12,7 +12,7 @@ class Base extends \Plugin {
 	/**
 	 * Initialize the plugin
 	 */
-	public function load() {
+	public function _load() {
 		$f3 = \Base::instance();
 		$f3->route("POST /bitbucket-post", "Plugin\Bitbucket\Controller->post");
 	}
