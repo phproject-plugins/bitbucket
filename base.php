@@ -26,7 +26,7 @@ class Base extends \Plugin {
 			throw new Exception("Unable to write to Bitbucket plugin configuration file");
 		}
 
-		$token = \Helper\Security::instance()->hash();
+		$token = \Helper\Security::instance()->salt();
 		$f3 = \Base::instance();
 		$f3->set("success", "Bitbucket plugin installed. Hook URL: " . $f3->get("site.url") . "bitbucket-post?token=$token");
 		$f3->set("site.plugins.bitbucket.token", $token);
