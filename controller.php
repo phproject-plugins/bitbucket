@@ -68,7 +68,7 @@ class Controller extends \Controller {
 						}
 
 						// Check for hours spent updates
-						if(preg_match("/@[0-9\.]h/i", $commit->message, $matches)) {
+						if(preg_match("/@[0-9\.]+h/i", $commit->message, $matches)) {
 							$hours = floatval(ltrim($matches[0], "@"));
 							if($hours) {
 								$issue->hours_spent = $issue->hours_spent + $hours;
@@ -77,7 +77,7 @@ class Controller extends \Controller {
 						}
 
 						// Generate comment
-						$comment = new \Model\Comment;
+						$comment = new \Model\Issue\Comment;
 						$comment->issue_id = $issue->id;
 						$comment->text = "This issue was mentioned in a \"commit\":{$json->canon_url}{$json->repository->absolute_url}commits/{$commit->raw_node}:\n" . $commit->message;
 						$comment->created_date = $this->now();
