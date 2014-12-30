@@ -43,5 +43,13 @@ class Base extends \Plugin {
 		return is_file(__DIR__ . DIRECTORY_SEPARATOR . "config.ini");
 	}
 
+	/**
+	 * Generate page for admin panel
+	 */
+	public function _admin() {
+		$f3 = \Base::instance();
+		$f3->set("UI", $f3->get("UI") . ";./app/plugin/bitbucket/");
+		echo \Helper\View::instance()->render("view/admin.html");
+	}
 
 }
