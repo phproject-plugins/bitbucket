@@ -24,7 +24,7 @@ class Controller extends \Controller {
 			}
 
 			if(!is_object($json)) {
-				$log->write("Bad JSON data.");
+				$log->write("Bad JSON data: " . $post);
 				$f3->error(400);
 				return;
 			}
