@@ -73,7 +73,7 @@ class Controller extends \Controller {
 
 						// Check for hours spent updates
 						if(preg_match("/@[0-9\.]+h/i", $commit->message, $matches)) {
-							$hours = floatval(ltrim($matches[0], "@"));
+							$hours = floatval(trim($matches[0], "@Hh"));
 							if($hours) {
 								$issue->hours_spent = $issue->hours_spent + $hours;
 								$updated = true;
