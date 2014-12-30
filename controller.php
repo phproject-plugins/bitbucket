@@ -17,6 +17,13 @@ class Controller extends \Controller {
 	public function post($f3, $params) {
 		if($f3->get("GET.token") == $f3->get("site.plugins.bitbucket.token")) {
 			$post = file_get_contents('php://input');
+
+			// Parse URL-encoded payload if given
+			if(substr($post, 0, 8) == 'payload=') {
+				parse_str($post, $data);
+				$post = $data['payload'];
+			}
+
 			$json = json_decode($post);
 
 			if($f3->get("DEBUG")) {
