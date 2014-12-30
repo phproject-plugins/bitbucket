@@ -14,7 +14,8 @@ class Base extends \Plugin {
 	 */
 	public function _load() {
 		$f3 = \Base::instance();
-		$f3->route("POST /bitbucket-post", "Plugin\Bitbucket\Controller->post");
+		$f3->config(__DIR__ . DIRECTORY_SEPARATOR . "config.ini");
+		$f3->route("POST|GET /bitbucket-post", "Plugin\Bitbucket\Controller->post");
 	}
 
 	/**
