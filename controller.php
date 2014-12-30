@@ -69,7 +69,7 @@ class Controller extends \Controller {
 							$updated = true;
 						}
 						// New: #reopen #re-open #new #broken
-						elseif($issue->closed_date && preg_match("/#(re-?open|new|broken)/i")) {
+						elseif($issue->closed_date && preg_match("/#(re-?open|new|broken)/i", $commit->message)) {
 							$status = new \Model\Issue\Status;
 							$status->load(array("closed = ?", 0));
 							$issue->status = $status->id;
