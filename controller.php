@@ -23,6 +23,12 @@ class Controller extends \Controller {
 				$log = new \Log("bitbucket.log");
 			}
 
+			if(!is_object($json)) {
+				$log->write("Bad JSON data.");
+				$f3->error(400);
+				return;
+			}
+
 			foreach($json->commits as $commit) {
 
 				if($f3->get("DEBUG")) {
