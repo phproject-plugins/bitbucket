@@ -30,8 +30,8 @@ class Base extends \Plugin {
 		$token = \Helper\Security::instance()->salt();
 		$f3 = \Base::instance();
 		$f3->set("success", "Bitbucket plugin installed. Hook URL: " . $f3->get("site.url") . "bitbucket-post?token=$token");
-		$f3->set("site.plugins.bitbucket.token", $token);
 		fwrite($fh, "[globals]\nsite.plugins.bitbucket.token=$token\n");
+		fwrite($fh, "[globals]\nsite.plugins.bitbucket.default_user_id=1\n");
 		fclose($fh);
 	}
 

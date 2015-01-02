@@ -54,8 +54,13 @@ class Controller extends \Controller {
 							$user = new \Model\User;
 							$user->load(array("email = ?", trim($matches[0], "<>")));
 							if(!$user->id) {
-								$f3->error(417);
-								return;
+								if($f3->exists("site.plugins.bitbucket.default_user_id")) {
+									$user->load((int)$f3->get("site.plugins.bitbucket.default_user_id"));
+								}
+								if(!$user->id) {
+									$f3->error(417);
+									return;
+								}
 							}
 							$f3->set("user", $user->cast());
 							$f3->set("user_obj", $user);
