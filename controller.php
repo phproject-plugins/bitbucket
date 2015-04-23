@@ -98,10 +98,20 @@ class Controller extends \Controller {
 							}
 						}
 
+						// Generate text for comment, using Markdown if enabled, then Textile, then plain text
+						$url = "{$json->canon_url}{$json->repository->absolute_url}commits/{$commit->raw_node}";
+						if($f3->get("parse.markdown")) {
+							$text = "This issue was mentioned in a [commit]($url):\n\n" . $commit->message;
+						} elseif($f3->get("parse.textile")) {
+							$text = "This issue was mentioned in a \"commit\":$url:\n" . $commit->message;
+						} else {
+							$text = "This issue was mentioned in a commit - $url:\n" . $commit->message;
+						}
+
 						// Generate comment
 						$comment = new \Model\Issue\Comment;
 						$comment->issue_id = $issue->id;
-						$comment->text = "This issue was mentioned in a \"commit\":{$json->canon_url}{$json->repository->absolute_url}commits/{$commit->raw_node}:\n" . $commit->message;
+						$comment->text = $text;
 						$comment->created_date = $this->now();
 						$comment->user_id = $user->id;
 						$comment->save();
