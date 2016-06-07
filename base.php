@@ -14,7 +14,9 @@ class Base extends \Plugin {
 	 */
 	public function _load() {
 		$f3 = \Base::instance();
-		$f3->config(__DIR__ . DIRECTORY_SEPARATOR . "config.ini");
+		if(is_file(__DIR__ . "/config.ini")) {
+			$f3->config(__DIR__ . "/config.ini");
+		}
 		$f3->route("POST|GET /bitbucket-post", "Plugin\Bitbucket\Controller->post");
 	}
 
@@ -22,17 +24,11 @@ class Base extends \Plugin {
 	 * Install plugin (generate configuration file)
 	 */
 	public function _install() {
-		$fh = fopen(__DIR__ . DIRECTORY_SEPARATOR . "config.ini", "w");
-		if($fh === false) {
-			throw new Exception("Unable to write to Bitbucket plugin configuration file");
-		}
-
 		$token = \Helper\Security::instance()->salt();
 		$f3 = \Base::instance();
 		$f3->set("success", "Bitbucket plugin installed. Hook URL: " . $f3->get("site.url") . "bitbucket-post?token=$token");
-		fwrite($fh, "[globals]\nsite.plugins.bitbucket.token=$token\n");
-		fwrite($fh, "[globals]\nsite.plugins.bitbucket.default_user_id=1\n");
-		fclose($fh);
+		\Model\Config::setVal("site.plugins.bitbucket.token", $token);
+		\Model\Config::setVal("site.plugins.bitbucket.default_user_id", 1);
 	}
 
 	/**
@@ -40,16 +36,15 @@ class Base extends \Plugin {
 	 * @return bool
 	 */
 	public function _installed() {
-		return is_file(__DIR__ . DIRECTORY_SEPARATOR . "config.ini");
+		return \Base::instance()->get("site.plugins.bitbucket.token") ||
+			is_file(__DIR__ . "/config.ini");
 	}
 
 	/**
 	 * Generate page for admin panel
 	 */
 	public function _admin() {
-		$f3 = \Base::instance();
-		$f3->set("UI", $f3->get("UI") . ";./app/plugin/bitbucket/");
-		echo \Helper\View::instance()->render("view/admin.html");
+		echo \Helper\View::instance()->render("bitbucket/view/admin.html");
 	}
 
 }
