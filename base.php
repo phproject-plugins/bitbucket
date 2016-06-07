@@ -2,7 +2,7 @@
 /**
  * @package  Bitbucket
  * @author   Alan Hardman <alan@phpizza.com>
- * @version  1.2.0
+ * @version  1.2.2
  */
 
 namespace Plugin\Bitbucket;

@@ -36,6 +36,11 @@ class Controller extends \Controller {
 				return;
 			}
 
+			$usermap = array();
+			if(is_file(__DIR__ . "/usermap.ini")) {
+				$usermap = parse_ini_file(__DIR__ . "/usermap.ini", false, INI_SCANNER_RAW);
+			}
+
 			foreach($json->commits as $commit) {
 
 				if($f3->get("DEBUG")) {
@@ -51,8 +56,12 @@ class Controller extends \Controller {
 
 						// Find matching user
 						if(preg_match("/<[^ ]+@[^ ]+>/", $commit->raw_author, $matches)) {
+							$email = trim($matches[0], "<>");
+							if(array_key_exists($email, $usermap)) {
+								$email = $usermap[$email];
+							}
 							$user = new \Model\User;
-							$user->load(array("email = ?", trim($matches[0], "<>")));
+							$user->load(array("email = ?", $email));
 							if(!$user->id) {
 								if($f3->exists("site.plugins.bitbucket.default_user_id")) {
 									$user->load((int)$f3->get("site.plugins.bitbucket.default_user_id"));

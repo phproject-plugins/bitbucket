@@ -3,5 +3,5 @@
 	<code>{{ @site.url }}bitbucket-post?token={{ urlencode(@site.plugins.bitbucket.token) }}</code>
 </p>
 <p>
-	Debug logging is currently {{ @DEBUG ? '<span class="text-success">enabled</span>' : '<span class="text-danger">disabled</span>' }}. The plugin will log all valid POST requests to log/bitbucket.log if <code>DEBUG</code> is set to a non-0 value in <code>config.ini</code>.
+	Debug logging is currently {{ @DEBUG ? '<span class="text-success">enabled</span>' : '<span class="text-danger">disabled</span>' }}. The plugin will log all valid POST requests to log/bitbucket.log if <code>DEBUG</code> is set to a non-0 value in the <code>config</code> table.
 </p>
