@@ -44,7 +44,7 @@ class Controller extends \Controller {
 			foreach($json->commits as $commit) {
 
 				if($f3->get("DEBUG")) {
-					$log->write("Commit found: " . $commit->raw_node . $commit->message);
+					$log->write("Commit found: {$commit->raw_node} {$commit->message}");
 				}
 
 				// Match commits with issue IDs
@@ -63,6 +63,7 @@ class Controller extends \Controller {
 							$user = new \Model\User;
 							$user->load(array("email = ?", $email));
 							if(!$user->id) {
+								$log->write("No user found for email: {$email}, raw: {$commit->raw_author}");
 								if($f3->exists("site.plugins.bitbucket.default_user_id")) {
 									$user->load((int)$f3->get("site.plugins.bitbucket.default_user_id"));
 								}
