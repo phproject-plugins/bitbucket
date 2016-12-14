@@ -40,6 +40,11 @@ class Controller extends \Controller {
 				$usermap = parse_ini_file(__DIR__ . "/usermap.ini", false, INI_SCANNER_RAW);
 			}
 
+			// Ignore requests without pushed changes
+			if(empty($json->push->changes)) {
+				return;
+			}
+
 			foreach($json->push->changes as $change){
 				foreach($change->commits as $commit) {
 
