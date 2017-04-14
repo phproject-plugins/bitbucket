@@ -50,7 +50,7 @@ class Controller extends \Controller {
 
 				foreach ($change->commits as $commit) {
 					$record = new Model\Commit;
-					$record->load(['hash' => $commit->hash]);
+					$record->load(['hash = ?', $commit->hash]);
 
 					if ($f3->get("DEBUG")) {
 						if ($record->id) {
